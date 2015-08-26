@@ -28,7 +28,7 @@ io.on('connection', function(socket){
 		socket.emit('myError','Stop spamming me bro');
 		return;
 	}
-	if(!msg || typeof msg != 'string' || msg.trim().length > 0){
+	if(!msg || typeof msg != 'string' || msg.trim().length === 0){
 	 	socket.emit('myError', 'Speak up');
 	   return;
 	}
