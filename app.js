@@ -17,7 +17,7 @@ io.on('connection', function(socket){
   var allowed = false;
   setInterval(function () {
 		allowed = true;
-	  }, 5000); 
+	  }, 500); 
   for(var i in messages){
 	  filteredMessages.push(filterMessage(messages[i]));
   }
