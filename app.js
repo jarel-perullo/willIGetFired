@@ -25,10 +25,15 @@ io.on('connection', function(socket){
 	
   socket.on('chat message', function(msg){
     if(!allowed){
-		socket.emit('spam');
+		socket.emit('myError','Stop spamming me bro');
 		return;
 	}
-	  var message = {id: messages.length, txt: msg, yesVotes: [], noVotes: []};
+	if(!msg || typeof msg === 'string' || msg.trim().length === 0){
+	 	socket.emit('myError', 'Speak up');
+	   return;
+	}
+	  
+	  var message = {id: messages.length, txt: msg.trim(), yesVotes: [], noVotes: []};
 	 allowed = false;
 	 messages.push(message);
 	 setInterval(function () {
@@ -49,10 +54,10 @@ io.on('connection', function(socket){
 			 }
 			 io.emit('voteUpdate', filterMessage(message));
 		 }else{
-			 socket.emit('duplicateVote');
+			 socket.emit('myError', 'I heard you already');
 		 }
 	 }else{
-		 socket.emit('invalidMessage');
+		 socket.emit('myError', 'Stop making shit up');
 	 }
   });
 });

@@ -84,14 +84,8 @@
 		var percent = totalVotes === 0 ? 0 : (msg.yesVotes / totalVotes * 100);
 		 $('#'+msg.id).find('.progress').css('width', percent+'%')
 	  });
-	socket.on('invalidMessage', function(msgStr){
-		alert('That message doesnt exist');
-	});
-   socket.on('duplicateVote', function(msgStr){
-		alert('You already voted');
-	});
-    socket.on('spam', function(msgStr){
-		alert('Stop Spamming me bro');
+	socket.on('myError', function(err){
+		alert(err);
 	});
 	 socket.emit('initialize');
     </script>
