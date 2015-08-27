@@ -86,7 +86,7 @@
 		 
 		 var totalVotes = (msg.yesVotes + msg.noVotes);
 		var percent = totalVotes === 0 ? 0 : (msg.yesVotes / totalVotes * 100);
-		 $('#'+msg.id).find('.progress').css('width', percent+'%')
+		 $('#'+msg.id).parent().find('.progress').css('width', percent+'%')
 	  });
 	socket.on('myError', function(err){
 		alert(err);
