@@ -9,18 +9,43 @@
     <form action="">
       <input id="m" autocomplete="off" placeholder="If I ..."/><button>Will I Get Fired?</button>
     </form>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      var socket = io();
+
+    	var ref = new Firebase('https://willigetfired.firebaseio.com/messages');
+
+    	ref.on('value', function (snapshot) {
+    		var messages = snapshot.val();
+
+    		if(!messages) return;
+
+    		$('#messages').empty();
+
+    		for(var key in messages) {
+    			var msg = messages[key];
+    			msg.id = key;
+    			console.log('MESSAGE:', msg);
+    			if(msg.votes) {
+	    			msg.yesVotes = Object.keys(msg.votes).filter(function (k) { return msg.votes[k] === 'y' }).length;
+	    			msg.noVotes = Object.keys(msg.votes).filter(function (k) { return msg.votes[k] === 'n' }).length;
+	    		} else {
+	    			msg.yesVotes = 0;
+	    			msg.noVotes = 0;
+	    		}
+    			renderMessage(msg);
+    		}
+    	});
+
+      // var socket = io();
       $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
+      	ref.push({ message: $('#m').val()});
         $('#m').val('');
         return false;
       });
 	
 	function formatMessage(msg){
-		return msg.txt + '(Yes Votes:'+ msg.yesVotes +', No Votes:'+ msg.noVotes +' )';
+		return msg.message + '(Yes Votes:'+ msg.yesVotes +', No Votes:'+ msg.noVotes +' )';
 	}
 	function renderMessage(msg){
 		var totalVotes = (msg.yesVotes + msg.noVotes);
@@ -37,39 +62,18 @@
 				.append($('<div>')
 					.append($('<button>').text('Yes')
 					.click(function(){
-						socket.emit('vote', { id:msg.id,vote:"yes"});
+						ref.child(msg.id).child('votes').push('y');
+						// socket.emit('vote', { id:msg.id,vote:"yes"});
 					}))
 					.append($('<button>').text('No')
 					.click(function(){
-						socket.emit('vote', {id:+msg.id,vote:"no"});
+						ref.child(msg.id).child('votes').push('n');
+						// socket.emit('vote', {id:+msg.id,vote:"no"});
 					}))
 				)
 			);
 		
 	}
-	socket.on('messages', function(messages){
-	
-		
-		$('#messages').empty();
-		for(var i in messages){
-        	renderMessage(messages[i]);
-		}
-      });
-      socket.on('chat message', function(msg){
-        renderMessage(msg);
-      });
-	  socket.on('voteUpdate', function(msg){
-		
-		$('#'+msg.id).text(formatMessage(msg));
-		 
-		 var totalVotes = (msg.yesVotes + msg.noVotes);
-		var percent = totalVotes === 0 ? 0 : (msg.yesVotes / totalVotes * 100);
-		 $('#'+msg.id).parent().find('.progress').css('width', percent+'%')
-	  });
-	socket.on('myError', function(err){
-		alert(err);
-	});
-	 socket.emit('initialize');
     </script>
   </body>
 </html>
