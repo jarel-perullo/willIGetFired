@@ -1,7 +1,42 @@
+body:after {
+	content: "";
+	background-image: url(images/FIRED--logo.png);
+	opacity: 0.05;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	position: fixed;
+	z-index: -1;
+	background-repeat:no-repeat;
+	background-size:contain;
+	background-position:center;
+	width: 100%;
+}
+
+form {
+	padding-bottom: 4vh;
+}
+
+form button {
+
+}
+
 .progress {
-	background-color: #2196F3;
+	background-color: #FCC7C3;
+	height: 1vh;
 }
 
 .progress .determinate {
 	background-color: #F44336;
+}
+
+@media (max-width: 600px) {
+  .yes-button, .no-button { 
+  	width: 49%;
+  }
+
+  form button {
+  	width: 100%;
+  }
 }

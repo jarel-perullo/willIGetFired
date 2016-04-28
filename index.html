@@ -10,7 +10,7 @@
   	<div class="container">
 	  	<form action="">
 	    	<input id="m" autocomplete="off" placeholder="If I ..."/>
-	    	<button class="waves-effect waves-light btn pink">
+	    	<button class="waves-effect waves-light btn orange">
 	    		Will I Get Fired? 
 	    		<i class="material-icons right">send</i>
 	    	</button>
@@ -24,10 +24,10 @@
     <script type="text/html" id="question">
     	<li>
     		<h6>{{formatted}}</h6>
-    		<a class="yes-button btn-floating btn-large waves-effect waves-light red">
+    		<a class="yes-button btn red">
     			<i class="material-icons">thumb_up</i>
     		</a>
-    		<a class="no-button btn-floating btn-large waves-effect waves-light blue">
+    		<a class="no-button btn blue">
     			<i class="material-icons">thumb_down</i>
     		</a>
     		<div class="progress">
@@ -90,6 +90,27 @@
 
 		$('#messages').prepend(el);
 	}
+
+    </script>
+    <script>
+		var listRef = new Firebase("https://willigetfired.firebaseio.com/presence/");
+		var userRef = listRef.push();
+
+		// Add ourselves to presence list when online.
+		var presenceRef = new Firebase("https://willigetfired.firebaseio.com/.info/connected");
+		presenceRef.on("value", function(snap) {
+		  if (snap.val()) {
+		    // Remove ourselves when we disconnect.
+		    userRef.onDisconnect().remove();
+
+		    userRef.set(true);
+		  }
+		});
+
+		// Number of online users is the number of objects in the presence list.
+		listRef.on("value", function(snap) {
+		  console.log("# of online users = " + snap.numChildren());
+		});
     </script>
   </body>
 </html>
