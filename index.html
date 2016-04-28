@@ -2,16 +2,42 @@
 <html>
   <head>
     <title>Will I Get Fired</title>
-    <link rel="stylesheet" href="style.css" >
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+     <link href="style.css" rel="stylesheet">
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" placeholder="If I ..."/><button>Will I Get Fired?</button>
-    </form>
+  	<div class="container">
+	  	<form action="">
+	    	<input id="m" autocomplete="off" placeholder="If I ..."/>
+	    	<button class="waves-effect waves-light btn pink">
+	    		Will I Get Fired? 
+	    		<i class="material-icons right">send</i>
+	    	</button>
+	    </form>
+    	<ul id="messages"></ul>
+    </div>
+    
     <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
+    <script type="text/html" id="question">
+    	<li>
+    		<h6>{{formatted}}</h6>
+    		<a class="yes-button btn-floating btn-large waves-effect waves-light red">
+    			<i class="material-icons">thumb_up</i>
+    		</a>
+    		<a class="no-button btn-floating btn-large waves-effect waves-light blue">
+    			<i class="material-icons">thumb_down</i>
+    		</a>
+    		<div class="progress">
+		      <div class="determinate" style="width: {{percent}}%"></div>
+		  	</div>
+    	</li>
+    </script>
     <script>
+
+    	var questionTemplate = $('#question').html();
 
     	var ref = new Firebase('https://willigetfired.firebaseio.com/messages');
 
@@ -49,30 +75,20 @@
 	}
 	function renderMessage(msg){
 		var totalVotes = (msg.yesVotes + msg.noVotes);
-		var percent = totalVotes === 0 ? 0 : (msg.yesVotes / totalVotes * 100);
-		$('#messages')
-			.prepend($('<li>').css({width: '100%', maxWidth: '500px;'})
-				.append($('<label>')
-					.attr('id',msg.id).text(formatMessage(msg)))
-				.append($('<div>').css({width: '100%', height:'15px', border: '1px solid black'})
-					   .append($('<div>').css({width: percent+'%', height:'15px', backgroundColor: 'red'})
-							   			.attr('class','progress')
-					   )
-					)
-				.append($('<div>')
-					.append($('<button>').text('Yes')
-					.click(function(){
-						ref.child(msg.id).child('votes').push('y');
-						// socket.emit('vote', { id:msg.id,vote:"yes"});
-					}))
-					.append($('<button>').text('No')
-					.click(function(){
-						ref.child(msg.id).child('votes').push('n');
-						// socket.emit('vote', {id:+msg.id,vote:"no"});
-					}))
-				)
-			);
-		
+		msg.formatted = formatMessage(msg);
+		msg.percent = totalVotes === 0 ? 0 : (msg.yesVotes / totalVotes * 100);
+
+		var el = $(Mustache.render(questionTemplate, msg))
+
+		el.find('.yes-button').on('click', function (e) {
+			ref.child(msg.id).child('votes').push('y');
+		});
+
+		el.find('.no-button').on('click', function (e) {
+			ref.child(msg.id).child('votes').push('n');
+		});
+
+		$('#messages').prepend(el);
 	}
     </script>
   </body>
