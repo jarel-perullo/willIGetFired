@@ -12,7 +12,6 @@
 	    	<input id="m" autocomplete="off" placeholder="If I ..."/>
 	    	<button class="waves-effect waves-light btn orange">
 	    		Will I Get Fired? 
-	    		<i class="material-icons right">send</i>
 	    	</button>
 	    </form>
     	<ul id="messages"></ul>
@@ -23,13 +22,18 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
     <script type="text/html" id="question">
     	<li>
+        <p>Will I get fired if I...</p>
     		<h6>{{formatted}}</h6>
+        <div class="voter">
     		<a class="yes-button btn red">
     			<i class="material-icons">thumb_up</i>
+          <p>Yes, you will get fired</p>
     		</a>
     		<a class="no-button btn blue">
     			<i class="material-icons">thumb_down</i>
-    		</a>
+    		  <p>No, You won't get fired.</p>
+        </a>
+        </div>
     		<div class="progress">
 		      <div class="determinate" style="width: {{percent}}%"></div>
 		  	</div>

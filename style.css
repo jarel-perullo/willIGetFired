@@ -1,7 +1,7 @@
 body:after {
 	content: "";
 	background-image: url(images/FIRED--logo.png);
-	opacity: 0.05;
+	opacity: 0.02;
 	top: 0;
 	left: 0;
 	bottom: 0;
@@ -13,22 +13,44 @@ body:after {
 	background-position:center;
 	width: 100%;
 }
-
+h6{
+	text-align: center;
+	font-size: 24px;
+	line-height:28px;
+}
 form {
 	padding-bottom: 4vh;
+	text-align: center;
+	padding-top: 4vh;
 }
-
-form button {
-
+li{
+	padding-bottom:40px;
+}
+p{
+	-webkit-margin-before: -15px;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-size: 10px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .progress {
-	background-color: #FCC7C3;
-	height: 1vh;
+	background-color: #2196F3;
+	height: 2vh;
 }
 
 .progress .determinate {
 	background-color: #F44336;
+}
+.voter{
+	text-align:center;
+	padding:10px 0;
+}
+.yes-button, .no-button { 
+	height: auto;
+	text-align: center;
 }
 
 @media (max-width: 600px) {
