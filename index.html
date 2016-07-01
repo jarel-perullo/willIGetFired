@@ -2,6 +2,7 @@
 <html>
   <head>
     <title> Will I Get Fired? </title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
      <link href="style.css" rel="stylesheet">
@@ -9,10 +10,6 @@
     <link rel="icon" type="image/png" sizes="16x16"   href="images/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32"   href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96"   href="images/favicon-96x96.png">
-
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
      
     <link rel="manifest" href="/manifest.json">
   </head>
@@ -21,7 +18,7 @@
 	  	<form action="">
 	    	<input id="m" autocomplete="off" placeholder="If I ..."/>
 	    	<button class="waves-effect waves-light btn orange">
-	    		Will I Get Fired? 
+	    		Will I Get Fired?
 	    	</button>
 	    </form>
     	<ul id="messages"></ul>
@@ -50,7 +47,9 @@
     </script>
     
     
-    <script src="app.js"></script>
-    <script src="fuse.min.js"></script>
+    <script async src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script async src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
+    <script async src="app.js"></script>
   </body>
 </html>
