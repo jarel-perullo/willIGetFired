@@ -6,14 +6,18 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
      <link href="style.css" rel="stylesheet">
      <!-- ICONS -->
-    <link rel="icon" type="image/png" sizes="16x16"   href="/images/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32"   href="/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96"   href="/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16"   href="images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32"   href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96"   href="images/favicon-96x96.png">
+
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
      
     <link rel="manifest" href="/manifest.json">
   </head>
   <body>
-  	<div class="container">
+  	<div class="container fadeIn hidden">
 	  	<form action="">
 	    	<input id="m" autocomplete="off" placeholder="If I ..."/>
 	    	<button class="waves-effect waves-light btn orange">
@@ -23,38 +27,30 @@
     	<ul id="messages"></ul>
     </div>
     
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyADsDMZYEtEaT-LN9l0B3lIkaamuYryjbo",
-        authDomain: "willigetfired.firebaseapp.com",
-        databaseURL: "https://willigetfired.firebaseio.com",
-        storageBucket: "project-5232445400330223982.appspot.com",
-      };
-      firebase.initializeApp(config);
-    </script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
+    
     <script type="text/html" id="question">
     	<li>
         <p>Will I get fired if I...</p>
-    		<h6>{{formatted}}</h6>
+    		<h6>{{message}}</h6>
+        <div class="voter">{{yesVotes}} of {{totalVotes}} say yes</div>
         <div class="voter">
-    		<a class="yes-button btn red">
-    			<i class="material-icons">thumb_up</i>
-          <p>Yes, you will get fired</p>
-    		</a>
-    		<a class="no-button btn blue">
-    			<i class="material-icons">thumb_down</i>
-    		  <p>No, You won't get fired.</p>
-        </a>
+      		<a class="yes-button btn red">
+      			<i class="material-icons">thumb_up</i>
+            <p>Yes, you will get fired</p>
+      		</a>
+      		<a class="no-button btn blue">
+      			<i class="material-icons">thumb_down</i>
+      		  <p>No, You won't get fired.</p>
+          </a>
         </div>
     		<div class="progress">
 		      <div class="determinate" style="width: {{percent}}%"></div>
 		  	</div>
     	</li>
     </script>
+    
+    
     <script src="app.js"></script>
+    <script src="fuse.min.js"></script>
   </body>
 </html>

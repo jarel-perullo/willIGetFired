@@ -1,0 +1,22 @@
+{
+  "rules":{
+  	".read": true,
+    "messages": {
+      "$message_id": {
+        "$other": {
+          ".validate": false
+        },
+        ".write": "auth != null",
+      	"message": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 64  && !data.exists()"
+        },
+        "votes": {
+          "$vote_id": {
+            ".write": "auth != null && !data.exists()",
+            ".validate": "newData.val().matches(/^[yn]$/) && auth.uid === $vote_id"
+          }
+        }
+      }
+    }
+	}
+}

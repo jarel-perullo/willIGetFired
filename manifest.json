@@ -1,6 +1,8 @@
 {
   "short_name": "Will I Get Fired?",
   "name": "Will I Get Fired - Crowd sourced HR",
+  "theme_color": "#FF9800",
+  "background_color": "#FF9800",
   "icons": [
     {
       "src": "/images/favicon-96x96.png",
@@ -18,7 +20,8 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/index.html",
+  "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "gcm_sender_id": "591070599505"
 }
